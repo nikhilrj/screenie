@@ -13,7 +13,7 @@ def getImgCodes(url):
 	tree = BeautifulSoup(html_dump.read())
 	for link in tree.findAll('a'):
 		view = str(link.get('href'))
-		if 'Packages' in view and not 'GroupImage=True' in view:
+		if 'Packages' in view and not 'GroupImage=True' in view and view[14:39] not in imgCodes:
 			imgCodes.append(view[14:39])
 
 	return imgCodes
@@ -33,7 +33,9 @@ def cropImg(imgCode):
 	canvas.save(str(imgCode) + '.jpg')
 
 if __name__ == '__main__':
-	imgCodes = getImgCodes('')
+	userURL = raw_input('Please paste in your proof link from your e-mail\n Example: http://orders.flashphotography.com/Track/C.aspx?c=######&q=#######&n=######&l=*******&a=######&e=######&t=g\n\nInput > ')
+	imgCodes = getImgCodes(userURL)
+
 	for img in imgCodes:
 		cropImg(img)
 		print 'Finished Image ' + str(img)
