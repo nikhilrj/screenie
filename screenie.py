@@ -2,8 +2,6 @@
 from BeautifulSoup import BeautifulSoup
 from PIL import Image
 
-#im = Image.open(image)
-#im.show()
 
 def getImgCodes(url):
 	cj = cookielib.CookieJar()
@@ -20,8 +18,22 @@ def getImgCodes(url):
 
 	return imgCodes
 
-def cropImg(url):
-	return
+def cropImg(imgCode):
+	canvas = Image.new('RGB', (481,628))
+	for x in xrange(56, 550, 113):
+		for y in xrange(56, 700, 113):
+			target = 'http://images1.flashphotography.com/Magnifier/MagnifyRender.ashx?' + 'X=' + str(x) + '&Y=' + str(y) + '&' + imgCode + '&A=0'
+			
+			image = urllib.urlopen(target)
+			im = Image.open(image)
+			im = im.crop((37,37,152,152))
+			
+			canvas.paste(im, (x-56,y-56))
+
+	canvas.save(str(imgCode) + '.jpg')
 
 if __name__ == '__main__':
-	print imgCodes
+	imgCodes = getImgCodes('')
+	for img in imgCodes:
+		cropImg(img)
+		print 'Finished Image ' + str(img)
