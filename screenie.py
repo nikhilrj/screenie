@@ -22,7 +22,7 @@ def cropImg(imgCode):
 	canvas = Image.new('RGB', (481,628))
 	for x in xrange(56, 550, 113):
 		for y in xrange(56, 700, 113):
-			target = 'http://images1.flashphotography.com/Magnifier/MagnifyRender.ashx?' + 'X=' + str(x) + '&Y=' + str(y) + '&' + imgCode + '&A=0'
+			target = 'http://images2.flashphotography.com/Magnifier/MagnifyRender.ashx?' + 'X=' + str(x) + '&Y=' + str(y) + '&' + imgCode + '&A=0'
 			
 			image = urllib.urlopen(target)
 			im = Image.open(image)
